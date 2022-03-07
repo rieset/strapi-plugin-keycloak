@@ -82,7 +82,7 @@ The login flow then would work like that:
 3. Once done, Strapi redirects back to the frontend using the defined `redirectToUrlAfterLogin` and appends the access token as a query parameter `accessToken`.
 4. The frontend reads the query parameter, stores it (e.g. session storage) and and sets the `Keycloak` header in requests to Strapi:
    ```shell
-   http://localhost:1337/api/todos -H "Keycloak: Bearer [Access Token]"
+   curl http://localhost:1337/api/todos -H "Keycloak: Bearer [Access Token]"
    ```
 
 ## Check if user is logged in
