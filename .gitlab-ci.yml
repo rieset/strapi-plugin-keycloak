@@ -24,6 +24,7 @@ install dependencies:
 lint:
   stage: lint
   script:
+    - yarn
     - yarn lint
 
 publish to NPM:
