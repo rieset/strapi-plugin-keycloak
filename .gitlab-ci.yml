@@ -1,0 +1,37 @@
+image: node:16-alpine
+
+stages:
+  - install
+  - lint
+  - publish
+
+cache: &global-cache
+  paths:
+    - node_modules
+  key:
+    files:
+      - arn.lock
+  policy: pull
+
+install dependencies:
+  stage: install
+  cache:
+    <<: *global-cache
+    policy: pull-push
+  script:
+    - yarn
+
+lint:
+  stage: lint
+  script:
+    - yarn lint
+
+publish to NPM:
+  stage: publish
+  only:
+    refs:
+      - main
+  before_script:
+    - npm config set //registry.npmjs.org/:_authToken ${NPM_ACCESS_TOKEN}
+  script:
+    - npm publish --access=public || true

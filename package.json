@@ -1,0 +1,40 @@
+{
+  "name": "@hipsquare/strapi-plugin-keycloak",
+  "version": "0.0.3",
+  "description": "Strapi plugin to support Keycloak authentication of end-users using a middleware.",
+  "strapi": {
+    "name": "keycloak",
+    "description": "Strapi plugin to support Keycloak authentication of end-users using a middleware.",
+    "kind": "plugin"
+  },
+  "dependencies": {
+    "node-fetch": "2"
+  },
+  "author": {
+    "name": "Felix Christl (fchristl@hipsquare.net)"
+  },
+  "maintainers": [
+    {
+      "name": "Felix Christl (fchristl@hipsquare.net)"
+    }
+  ],
+  "engines": {
+    "node": ">=12.x.x <=16.x.x",
+    "npm": ">=6.0.0"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-promise": "^5.2.0",
+    "prettier": "^2.5.1"
+  },
+  "scripts": {
+    "format": "prettier . -w",
+    "lint": "eslint ."
+  }
+}
