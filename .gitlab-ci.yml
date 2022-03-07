@@ -10,7 +10,7 @@ cache: &global-cache
     - node_modules
   key:
     files:
-      - arn.lock
+      - yarn.lock
   policy: pull
 
 install dependencies:
