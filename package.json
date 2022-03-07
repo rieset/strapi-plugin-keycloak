@@ -1,6 +1,6 @@
 {
   "name": "@hipsquare/strapi-plugin-keycloak",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Strapi plugin to support Keycloak authentication of end-users using a middleware.",
   "strapi": {
     "name": "keycloak",

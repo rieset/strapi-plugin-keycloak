@@ -4,6 +4,8 @@ This is a Strapi plugin to support Keycloak authentication for end-users. **It i
 
 ## Quickstart
 
+To configure Keycloak, see [this guide](./docs/configure-keycloak.md).
+
 Install the plugin in your Strapi project:
 
 ```shell
