@@ -2,7 +2,7 @@
 
 ## Start Keycloak
 
-Start Keycloak as described in [the Keycloak guide](https://www.keycloak.org/getting-started/getting-started-zip). 
+Start Keycloak as described in [the Keycloak guide](https://www.keycloak.org/getting-started/getting-started-zip).
 
 ## Create a realm
 
@@ -10,7 +10,7 @@ Follow the guide to create a realm. Call the realm "strapi".
 
 ## Create a client
 
-In the strapi realm, create a new client (follow "Secure your first app" from the Keycloak guide). 
+In the strapi realm, create a new client (follow "Secure your first app" from the Keycloak guide).
 
 Give the client the client ID "strapi" and make sure to pick "openid-connect" as the client protocol. Use your Strapi URL as the root URL, e.g. `http://localhost:1337`. Click "Save".
 
@@ -22,13 +22,12 @@ Open the Strapi Realm Settings in the Keycloak navigation bar. Under "Endpoints"
 
 You can fill your Strapi config (`config/keycloak.js`) from the Keycloak endpoint configuration (see the main [readme](../README.md)):
 
-| `config/keycloak.js` entry in Strapi | Keycloak endpoint config property |
-|-|-|
-| `clientId` | The client ID you entered when creating the client (we use "strapi" in this guide) |
-| `authEndpoint` | `authorization_endpoint` |
-| `tokenEndpoint` | `token_endpoint` |
-| `userinfoEndpoint` | `userinfo_endpoint` |
-
+| `config/keycloak.js` entry in Strapi | Keycloak endpoint config property                                                  |
+| ------------------------------------ | ---------------------------------------------------------------------------------- |
+| `clientId`                           | The client ID you entered when creating the client (we use "strapi" in this guide) |
+| `authEndpoint`                       | `authorization_endpoint`                                                           |
+| `tokenEndpoint`                      | `token_endpoint`                                                                   |
+| `userinfoEndpoint`                   | `userinfo_endpoint`                                                                |
 
 ## Create a user
 
