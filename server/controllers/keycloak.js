@@ -50,7 +50,6 @@ module.exports = {
         accessToken,
       };
 
-
       if (redirectToUrlAfterLogin != null) {
         let redirectUrl = redirectToUrlAfterLogin;
 
