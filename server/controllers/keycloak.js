@@ -50,14 +50,15 @@ module.exports = {
         accessToken,
       };
 
+
       if (redirectToUrlAfterLogin != null) {
-        ctx.redirect(
-          `${redirectToUrlAfterLogin}${
-            appendAccessTokenToRedirectUrlAfterLogin
-              ? `accessToken=${accessToken}`
-              : ""
-          }`
-        );
+        let redirectUrl = redirectToUrlAfterLogin;
+
+        if (appendAccessTokenToRedirectUrlAfterLogin) {
+          redirectUrl += `?accessToken=${accessToken}`;
+        }
+
+        ctx.redirect(redirectUrl);
         return;
       }
 
