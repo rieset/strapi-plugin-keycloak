@@ -1,5 +1,6 @@
 "use strict";
 const fetch = require("node-fetch");
+const getProfile = require("../utils/get-profile");
 const isUserLoggedIn = require("../utils/is-user-logged-in");
 
 const {
@@ -69,5 +70,8 @@ module.exports = {
   },
   isLoggedIn: async (ctx) => {
     ctx.body = await isUserLoggedIn(ctx);
+  },
+  profile: async (ctx) => {
+    ctx.body = await getProfile(ctx);
   },
 };

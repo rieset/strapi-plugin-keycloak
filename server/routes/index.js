@@ -31,4 +31,12 @@ module.exports = [
       auth: false,
     },
   },
+  {
+    method: "GET",
+    path: "/profile",
+    handler: "keycloak.profile",
+    config: {
+      auth: false,
+    },
+  },
 ];
