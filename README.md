@@ -29,6 +29,9 @@ module.exports = {
   // client ID configured in Keycloak
   clientId: "strapi",
 
+  // if the client access type is set to "confidential" in keycloak, add the client secret here. otherwise, don't set this value.
+  clientSecret: "abcdefg",
+
   // auth endpoint, right value comes from Keycloak
   authEndpoint:
     "http://localhost:8080/realms/strapi/protocol/openid-connect/auth",

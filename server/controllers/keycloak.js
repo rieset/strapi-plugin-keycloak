@@ -5,6 +5,7 @@ const isUserLoggedIn = require("../utils/is-user-logged-in");
 
 const {
   clientId,
+  clientSecret,
   redirectUri,
   authEndpoint,
   tokenEndpoint,
@@ -41,7 +42,7 @@ module.exports = {
 
     const response = await fetch(`${tokenEndpoint}`, {
       method: "POST",
-      body: `grant_type=authorization_code&code=${code}&redirect_uri=${redirectUri}&client_id=${clientId}`,
+      body: `grant_type=authorization_code&code=${code}&redirect_uri=${redirectUri}&client_id=${clientId}&client_secret=${clientSecret}`,
       headers: {
         "content-type": "application/x-www-form-urlencoded",
       },
@@ -66,8 +67,9 @@ module.exports = {
 
       ctx.body = "Welcome!";
     } else {
+      console.log("Error retrieving token from Keycloak: ", error);
       delete ctx.session.keycloak;
-      ctx.body = "Error logging in";
+      ctx.body = "Error logging in: ";
     }
   },
   logout: (ctx) => {
