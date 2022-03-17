@@ -67,7 +67,9 @@ module.exports = {
 
       ctx.body = "Welcome!";
     } else {
-      console.log("Error retrieving token from Keycloak: ", error);
+      strapi.log.warn(
+        "Error retrieving token from Keycloak: " + JSON.stringify(error)
+      );
       delete ctx.session.keycloak;
       ctx.body = "Error logging in: ";
     }
