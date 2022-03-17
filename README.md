@@ -41,11 +41,18 @@ module.exports = {
   userinfoEndpoint:
     "http://localhost:8080/realms/strapi/protocol/openid-connect/userinfo",
 
+  // logout endpoint, right value comes from Keycloak
+  logoutEndpoint:
+    "http://localhost:8080/realms/strapi/protocol/openid-connect/logout",
+
   // redirect URI after Keycloak login, should be the full URL of the Strapi instance and always point to the `keycloak/callback` endpoint
   redirectUri: "http://localhost:1337/keycloak/callback",
 
   // URL to redirect to when login process is finished. In normal cases, this would redirect you back to the application using Strapi data
   redirectToUrlAfterLogin: "http://localhost:1337/api/todos",
+
+  // URL to redirect to after logout
+  redirectToUrlAfterLogout: "http://localhost:1337/",
 };
 ```
 
@@ -90,3 +97,7 @@ The login flow then would work like that:
 To check if the user is currently logged in with a valid access token, you can call the `/keycloak/isLoggedIn` endpoint. It will return `true` or `false`.
 
 The endpoint works both with session cookies and with an explicitly set access token in the `Keycloak` header.
+
+## Logout
+
+To initiate a logout, redirect the user to `/keycloak/logout`.

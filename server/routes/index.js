@@ -17,6 +17,14 @@ module.exports = [
   },
   {
     method: "GET",
+    path: "/logout",
+    handler: "keycloak.logout",
+    config: {
+      auth: false,
+    },
+  },
+  {
+    method: "GET",
     path: "/callback",
     handler: "keycloak.callback",
     config: {

@@ -28,6 +28,7 @@ You can fill your Strapi config (`config/keycloak.js`) from the Keycloak endpoin
 | `authEndpoint`                       | `authorization_endpoint`                                                           |
 | `tokenEndpoint`                      | `token_endpoint`                                                                   |
 | `userinfoEndpoint`                   | `userinfo_endpoint`                                                                |
+| `logoutEndpoint`                     | `end_session_endpoint`                                                             |
 
 ## Create a user
 

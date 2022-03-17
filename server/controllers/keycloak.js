@@ -8,7 +8,9 @@ const {
   redirectUri,
   authEndpoint,
   tokenEndpoint,
+  logoutEndpoint,
   redirectToUrlAfterLogin,
+  redirectToUrlAfterLogout,
   appendAccessTokenToRedirectUrlAfterLogin,
 } = strapi.config.keycloak;
 
@@ -67,6 +69,11 @@ module.exports = {
       delete ctx.session.keycloak;
       ctx.body = "Error logging in";
     }
+  },
+  logout: (ctx) => {
+    ctx.redirect(
+      `${logoutEndpoint}?redirect_uri=${redirectToUrlAfterLogout ?? ""}`
+    );
   },
   isLoggedIn: async (ctx) => {
     ctx.body = await isUserLoggedIn(ctx);
