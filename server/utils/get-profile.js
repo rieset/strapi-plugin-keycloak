@@ -20,6 +20,5 @@ module.exports = async (ctx) => {
   });
 
   const userInfo = await userInfoResponse.json();
-
   return userInfo;
 };
