@@ -51,8 +51,16 @@ module.exports = {
   // redirect URI after Keycloak login, should be the full URL of the Strapi instance and always point to the `keycloak/callback` endpoint
   redirectUri: "http://localhost:1337/keycloak/callback",
 
-  // URL to redirect to when login process is finished. In normal cases, this would redirect you back to the application using Strapi data
+  // default URL to redirect to when login process is finished. In normal cases, this would redirect you back to the application using Strapi data
   redirectToUrlAfterLogin: "http://localhost:1337/api/todos",
+
+  // setting these allows the client to pass a `redirectTo` query parameter to the `login` endpoint. If the `redirectTo`
+  // parameter is permitted by this array, after login, Strapi will redirect the user to it. Leave empty to disable
+  // the functionality.
+  permittedOverwriteRedirectUrls: [
+    "http://localhost:1337",
+    "http://localhost:1338",
+  ],
 
   // URL to redirect to after logout
   redirectToUrlAfterLogout: "http://localhost:1337/",
@@ -87,7 +95,7 @@ To solve that, you can set `appendAccessTokenToRedirectUrlAfterLogin` to `true` 
 
 The login flow then would work like that:
 
-1. The frontend application redirects to Strapi's `/keycloak/login` endpoint.
+1. The frontend application redirects to Strapi's `/keycloak/login` endpoint. Optionally pass `?redirectTo=http://my-url` to redirect to that URL after login. Only works if the URL is part of `permittedOverwriteRedirectUrls`.
 2. Strapi initiates the login with Keycloak.
 3. Once done, Strapi redirects back to the frontend using the defined `redirectToUrlAfterLogin` and appends the access token as a query parameter `accessToken`.
 4. The frontend reads the query parameter, stores it (e.g. session storage) and and sets the `Keycloak` header in requests to Strapi:

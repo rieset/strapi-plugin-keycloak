@@ -13,6 +13,7 @@ const {
   redirectToUrlAfterLogin,
   redirectToUrlAfterLogout,
   appendAccessTokenToRedirectUrlAfterLogin,
+  permittedOverwriteRedirectUrls = [],
 } = strapi.config.keycloak;
 
 const scope = "profile";
@@ -26,6 +27,12 @@ module.exports = {
     ctx.body = "The Keycloak plugin is running.";
   },
   login: async (ctx) => {
+    if (ctx.session.keycloak == null) {
+      ctx.session.keycloak = {};
+    }
+
+    ctx.session.keycloak.redirectTo = ctx.query.redirectTo;
+
     ctx.response.redirect(
       `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=code`
     );
@@ -50,17 +57,29 @@ module.exports = {
     const { access_token: accessToken, error } = await response.json();
 
     if (accessToken && !error) {
+      const overwriteRedirectUrl = ctx.session.keycloak?.redirectTo;
+
       ctx.session.keycloak = {
         accessToken,
       };
 
-      if (redirectToUrlAfterLogin != null) {
-        let redirectUrl = redirectToUrlAfterLogin;
+      let redirectUrl = redirectToUrlAfterLogin;
 
-        if (appendAccessTokenToRedirectUrlAfterLogin) {
-          redirectUrl += `?accessToken=${accessToken}`;
-        }
+      // allow URL override only for permitted URLs
+      if (
+        overwriteRedirectUrl &&
+        permittedOverwriteRedirectUrls.find((permittedUrl) =>
+          overwriteRedirectUrl.startsWith(permittedUrl)
+        )
+      ) {
+        redirectUrl = overwriteRedirectUrl;
+      }
 
+      if (redirectUrl && appendAccessTokenToRedirectUrlAfterLogin) {
+        redirectUrl += `?accessToken=${accessToken}`;
+      }
+
+      if (requestUrl != null) {
         ctx.redirect(redirectUrl);
         return;
       }
