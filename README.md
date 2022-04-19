@@ -9,7 +9,7 @@ To configure Keycloak, see [this guide](./docs/configure-keycloak.md).
 Install the plugin in your Strapi project:
 
 ```shell
-yarn add @hipsquare/strapi-keycloak-plugin
+yarn add @hipsquare/strapi-plugin-keycloak
 ```
 
 Enable the plugin in **config/plugins.js** (create the file if it does not exist so far):
