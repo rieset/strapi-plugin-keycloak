@@ -38,7 +38,7 @@ module.exports = {
 
   // token endpoint, right value comes from Keycloak
   tokenEndpoint:
-    "http://localhost:8080/realms/strapi/protocol/openid-connect/userinfo",
+    "http://localhost:8080/realms/strapi/protocol/openid-connect/token",
 
   // user info endpoint, right value comes from Keycloak
   userinfoEndpoint:
