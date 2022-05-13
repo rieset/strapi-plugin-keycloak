@@ -60,12 +60,6 @@ module.exports = ({ strapi }) => ({
     ctx.body = "The Keycloak plugin is running.";
   },
   login: async (ctx) => {
-    if (ctx.session.keycloak == null) {
-      ctx.session.keycloak = {};
-    }
-
-    ctx.session.keycloak.redirectTo = ctx.query.redirectTo;
-
     ctx.response.redirect(
       `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=code`
     );
@@ -134,8 +128,9 @@ module.exports = ({ strapi }) => ({
         return null;
       });
 
+    console.log('Set cookie')
     ctx.cookies.set("token", jwt, {
-      httpOnly: true,
+      httpOnly: false,
       secure: false,
       maxAge: 1000 * 60 * 60 * 24 * 1, // 14 Day Age
       // domain:
@@ -143,6 +138,7 @@ module.exports = ({ strapi }) => ({
       //     ? process.env.PUBLIC_URL
       //     : "localhost",
     });
+    console.log('After set cookie')
 
     let redirectUrl = redirectToUrlAfterLogin;
 
