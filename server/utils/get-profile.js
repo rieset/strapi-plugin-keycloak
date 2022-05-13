@@ -2,7 +2,7 @@ const { userinfoEndpoint } = strapi.config.keycloak;
 const fetch = require("node-fetch");
 
 module.exports = async (ctx) => {
-  let accessToken = ctx.session.keycloak?.accessToken || ctx.headers.keycloak;
+  let accessToken = ctx.cookies.get("token") || null;
 
   if (!accessToken) {
     return;
@@ -20,5 +20,6 @@ module.exports = async (ctx) => {
   });
 
   const userInfo = await userInfoResponse.json();
+
   return userInfo;
 };
