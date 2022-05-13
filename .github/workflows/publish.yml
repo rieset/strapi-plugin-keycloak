@@ -5,7 +5,8 @@ on:
     types: [published]
 
 jobs:
-  build:
+  publish:
+    name: Publish plugin in npm
     runs-on: ubuntu-latest
     steps:
       -

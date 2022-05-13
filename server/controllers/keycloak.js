@@ -136,7 +136,7 @@ module.exports = ({ strapi }) => ({
 
     ctx.cookies.set("token", jwt, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production" ? true : false,
+      // secure: process.env.NODE_ENV === "production" ? true : false,
       maxAge: 1000 * 60 * 60 * 24 * 1, // 14 Day Age
       domain:
         process.env.NODE_ENV === "production"
@@ -152,7 +152,6 @@ module.exports = ({ strapi }) => ({
 
     if (redirectUrl != null) {
       ctx.redirect(redirectUrl);
-      return;
     }
 
     ctx.statusCode = 200;
