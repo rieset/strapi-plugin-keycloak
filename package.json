@@ -1,6 +1,6 @@
 {
   "name": "@rieset/strapi-plugin-keycloak",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Strapi plugin to support Keycloak authentication of end-users using a middleware.",
   "repository": "https://github.com/rieset/strapi-plugin-keycloak",
   "keywords": [

@@ -136,12 +136,12 @@ module.exports = ({ strapi }) => ({
 
     ctx.cookies.set("token", jwt, {
       httpOnly: true,
-      // secure: process.env.NODE_ENV === "production" ? true : false,
+      secure: false,
       maxAge: 1000 * 60 * 60 * 24 * 1, // 14 Day Age
-      domain:
-        process.env.NODE_ENV === "production"
-          ? process.env.PUBLIC_URL
-          : "localhost",
+      // domain:
+      //   process.env.NODE_ENV === "production"
+      //     ? process.env.PUBLIC_URL
+      //     : "localhost",
     });
 
     let redirectUrl = redirectToUrlAfterLogin;
