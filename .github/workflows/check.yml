@@ -1,0 +1,28 @@
+name: Check
+
+on: push
+
+jobs:
+  publish:
+    name: Check
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.4.1
+        with:
+          access_token: ${{ github.token }}
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16
+          registry-url: https://registry.npmjs.org/
+
+      - run: yarn install
+
+      -
+        name: Lint
+        run: yarn lint
