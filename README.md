@@ -1,5 +1,6 @@
 # Strapi Keycloak Plugin
 
+
 This is a Strapi plugin to support Keycloak authentication for end-users. **It is not designed for admin users**.
 
 ## Quickstart
