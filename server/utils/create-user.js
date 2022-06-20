@@ -1,5 +1,6 @@
 const { getService } = require("@strapi/plugin-users-permissions/server/utils");
 
+// Create user
 module.exports = async (jwt, strapi) => {
   const pluginStore = await strapi.store({
     type: "plugin",
