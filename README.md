@@ -3,6 +3,8 @@
 
 This is a Strapi plugin to support Keycloak authentication for end-users. **It is not designed for admin users**.
 
+The original library and the repository from which this library was forked: https://gitlab.com/hipsquare/strapi-plugin-keycloak.
+
 ## Quickstart
 
 Install the plugin in your Strapi project:
