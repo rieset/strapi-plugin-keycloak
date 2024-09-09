@@ -2,8 +2,8 @@
 const fetch = require("node-fetch");
 const getProfile = require("../utils/get-profile");
 const createUser = require("../utils/create-user");
+const updateUser = require("../utils/update-user");
 const isUserLoggedIn = require("../utils/is-user-logged-in");
-const { getService } = require("@strapi/plugin-users-permissions/server/utils");
 
 const emailRegExp =
   // eslint-disable-next-line
@@ -16,25 +16,7 @@ function cleanUrl(url) {
 }
 
 function parseJwt(token) {
-  try {
-    if (!token) return {};
-
-    var base64Url = token.split(".")[1];
-    var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-    var jsonPayload = decodeURIComponent(
-      Buffer.from(base64, "base64")
-        .toString()
-        .split("")
-        .map(function (c) {
-          return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
-        })
-        .join("")
-    );
-
-    return JSON.parse(jsonPayload);
-  } catch (err) {
-    return {};
-  }
+  return JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString());
 }
 
 const {
@@ -47,9 +29,23 @@ const {
   redirectToUrlAfterLogin,
   redirectToUrlAfterLogout,
   appendAccessTokenToRedirectUrlAfterLogin,
+  guiClientId
 } = strapi.config.keycloak;
 
 const scope = "profile";
+
+//HACK TODO: Remove this when we have a better way to do this.
+const _ = require('lodash');
+const jwt = require('jsonwebtoken');
+
+function issue(strapi, payload, jwtOptions = {}) {
+  _.defaults(jwtOptions, strapi.config.get('plugin.users-permissions.jwt'));
+  return jwt.sign(
+    _.clone(payload.toJSON ? payload.toJSON() : payload),
+    strapi.config.get('plugin.users-permissions.jwtSecret'),
+    jwtOptions
+  );
+}
 
 /**
  * A set of functions called "actions" for `keycloak`
@@ -65,7 +61,7 @@ module.exports = ({ strapi }) => ({
     );
   },
   callback: async (ctx) => {
-    const jwtService = getService("jwt");
+    // const jwtService = getService("jwt");
 
     // Strapi sometimes does not include the host name and protocol, making it an invalid URL.
     // With this code, we clean that up.
@@ -102,15 +98,20 @@ module.exports = ({ strapi }) => ({
             where: {
               email: jwt.email.toLowerCase(),
             },
+            populate: ["role"]
           })
           .then(async (user) => {
             if (!user) {
               return await createUser(jwt, strapi);
+            } else {
+              return await updateUser(jwt, strapi, user);
+
             }
 
-            return user;
+            // return user;
           })
-          .catch(() => {
+          .catch((e) => {
+            console.log(e)
             throw new Error("User is not exist");
           });
       })
@@ -119,7 +120,7 @@ module.exports = ({ strapi }) => ({
           throw new Error("User not found and creation failed");
         }
 
-        return jwtService.issue({ id: user.id });
+        return issue(strapi, { id: user.id });
       })
       .catch((err) => {
         ctx.statusCode = 403;
@@ -154,8 +155,9 @@ module.exports = ({ strapi }) => ({
     ctx.body = "Welcome!";
   },
   logout: (ctx) => {
+    ctx.cookies.set("token");
     ctx.redirect(
-      `${logoutEndpoint}?redirect_uri=${redirectToUrlAfterLogout ?? ""}`
+      `${logoutEndpoint}?post_logout_redirect_uri=${redirectToUrlAfterLogout ?? ""}&client_id=${guiClientId}`
     );
   },
   isLoggedIn: async (ctx) => {

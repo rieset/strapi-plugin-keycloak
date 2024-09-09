@@ -57,6 +57,12 @@ module.exports = {
 
   // URL to redirect to after logout
   redirectToUrlAfterLogout: "http://localhost:1337/",
+
+  // Role Mapping Enabled
+  roleMapping: true,
+
+  // Prefix for Mapping of Keycloak roles to Strapi roles
+  roleMappingPrefix: "appName",
 };
 ```
 

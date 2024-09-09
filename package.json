@@ -1,6 +1,6 @@
 {
   "name": "@rieset/strapi-plugin-keycloak",
-  "version": "0.1.4",
+  "version": "0.2.1",
   "description": "Strapi plugin to support Keycloak authentication of end-users using a middleware.",
   "repository": "https://github.com/rieset/strapi-plugin-keycloak",
   "keywords": [
@@ -28,7 +28,7 @@
     }
   ],
   "engines": {
-    "node": ">=12.x.x <=16.x.x",
+    "node": ">=12.x.x <=20.x.x",
     "npm": ">=6.0.0"
   },
   "license": "MIT",
